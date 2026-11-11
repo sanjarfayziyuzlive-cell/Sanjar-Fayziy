@@ -3,31 +3,288 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Konspektni tahrirlash | Sanjar Fayziy</title>
+<meta name="theme-color" content="#090909">
+<title>Konspektni tahrirlash | Book Sahifa</title>
+
 <style>
-*{box-sizing:border-box}
-body{margin:0;background:#090909;color:#eee;font-family:Georgia,serif}
-main{max-width:850px;margin:45px auto;padding:20px}
-a{color:#c6a15a;text-decoration:none}
-h1{color:#d6b46a;font-weight:normal;margin:35px 0}
-label{display:block;color:#c6a15a;margin:22px 0 10px}
-input,textarea{width:100%;padding:16px;background:#151515;color:#eee;border:1px solid #493b27;font:17px Georgia}
-textarea{min-height:400px;line-height:1.8;resize:vertical}
-button{margin-top:22px;padding:15px 28px;background:#c6a15a;color:#090909;border:0;font-size:15px;cursor:pointer}
+:root {
+    --bg: #090909;
+    --surface: #14120f;
+    --gold: #c9a45e;
+    --light: #e5cb92;
+    --text: #eee9df;
+    --muted: #a49b8e;
+    --border: rgba(201,164,94,.25);
+}
+
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: radial-gradient(ellipse at 50% 0%, rgba(151,112,43,.09), transparent 40%), var(--bg);
+    color: var(--text);
+    font-family: Georgia, 'Times New Roman', serif;
+}
+
+main {
+    width: min(850px, calc(100% - 36px));
+    margin: 45px auto 80px;
+}
+
+.back {
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 14px;
+}
+
+header {
+    text-align: center;
+    padding: 55px 0 40px;
+}
+
+.brand {
+    color: var(--light);
+    font-size: 13px;
+    letter-spacing: 5px;
+}
+
+header h1 {
+    color: var(--light);
+    font-size: clamp(29px, 5vw, 42px);
+    font-weight: normal;
+    margin: 35px 0 12px;
+}
+
+header p {
+    color: var(--muted);
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.line {
+    width: 60px;
+    height: 1px;
+    background: var(--gold);
+    margin: 25px auto;
+}
+
+.editor {
+    padding: 30px;
+    background: linear-gradient(145deg, #15130f, #0f0e0c);
+    border: 1px solid var(--border);
+}
+
+label {
+    display: block;
+    color: var(--light);
+    margin: 22px 0 10px;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+input, textarea {
+    display: block;
+    width: 100%;
+    padding: 16px;
+    background: #0b0b0b;
+    color: var(--text);
+    border: 1px solid #393126;
+    font: 16px Georgia, serif;
+    outline: none;
+    border-radius: 0;
+}
+
+input:focus, textarea:focus {
+    border-color: var(--gold);
+}
+
+input { font-size: 19px; }
+
+textarea {
+    min-height: 400px;
+    line-height: 1.9;
+    resize: vertical;
+}
+
+.hint {
+    color: var(--muted);
+    font-size: 12px;
+    line-height: 1.8;
+    margin: 12px 0;
+}
+
+.toolbar {
+    display: flex;
+    gap: 9px;
+    flex-wrap: wrap;
+    margin: 12px 0;
+}
+
+.toolbar span {
+    color: var(--gold);
+    background: #211c13;
+    border: 1px solid var(--border);
+    padding: 7px 10px;
+    font-size: 12px;
+}
+
+.actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 25px;
+}
+
+button {
+    padding: 15px 25px;
+    background: var(--gold);
+    color: #090909;
+    border: 1px solid var(--gold);
+    font: bold 12px Arial, sans-serif;
+    letter-spacing: 1px;
+    cursor: pointer;
+    transition: .2s;
+}
+
+button:hover {
+    background: var(--light);
+}
+
+.cancel {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 22px;
+    border: 1px solid var(--border);
+    color: var(--light);
+    text-decoration: none;
+    font: 12px Arial, sans-serif;
+}
+
+.preview {
+    display: none;
+    margin-top: 25px;
+    padding: 25px;
+    background: #0b0b0b;
+    border: 1px solid var(--border);
+}
+
+.preview h2 {
+    color: var(--gold);
+    font-size: 13px;
+    font-weight: normal;
+    letter-spacing: 2px;
+}
+
+.preview-content {
+    color: #d0cbc1;
+    line-height: 1.9;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+footer {
+    text-align: center;
+    padding: 28px 10px;
+    border-top: 1px solid #29251f;
+    color: #756d60;
+    font: 10px Arial, sans-serif;
+    letter-spacing: 3px;
+}
+
+@media(max-width:600px) {
+    main {
+        width: calc(100% - 28px);
+        margin-top: 25px;
+    }
+
+    header { padding: 42px 0 30px; }
+
+    .editor { padding: 20px 16px; }
+
+    textarea { min-height: 330px; }
+
+    .actions { flex-direction: column; }
+
+    .actions button, .cancel { width: 100%; text-align: center; }
+}
 </style>
 </head>
+
 <body>
 <main>
-<a href="{% url 'detail' konspekt.pk %}">← Konspektga qaytish</a>
-<h1>Konspektni tahrirlash</h1>
+
+<a class="back" href="{% url 'detail' konspekt.pk %}">
+    ← Konspektga qaytish
+</a>
+
+<header>
+    <div class="brand">BOOK SAHIFA</div>
+    <div class="line"></div>
+    <h1>Konspektni tahrirlash</h1>
+    <p>Fikrlaringizni takomillashtiring va o‘zgarishlarni saqlang.</p>
+</header>
+
+<section class="editor">
 <form method="post">
-{% csrf_token %}
-<label>Sarlavha</label>
-<input name="sarlavha" value="{{ konspekt.sarlavha }}" required>
-<label>Matn</label>
-<textarea name="matn" required>{{ konspekt.matn }}</textarea>
-<button type="submit">O‘ZGARISHLARNI SAQLASH</button>
+    {% csrf_token %}
+
+    <label for="sarlavha">KONSPEKT SARLAVHASI</label>
+    <input
+        id="sarlavha"
+        name="sarlavha"
+        type="text"
+        value="{{ konspekt.sarlavha }}"
+        required
+    >
+
+    <label for="matn">KONSPEKT MATNI</label>
+
+    <div class="toolbar">
+        <span>## Sarlavha</span>
+        <span>**Qalin matn**</span>
+        <span>*Kursiv*</span>
+        <span>> Iqtibos</span>
+        <span>- Ro‘yxat</span>
+    </div>
+
+    <textarea id="matn" name="matn" required>{{ konspekt.matn }}</textarea>
+
+    <p class="hint">
+        Markdown formatidan foydalanishingiz mumkin.
+        Saqlashdan oldin matnni tekshiring.
+    </p>
+
+    <div class="actions">
+        <button type="submit">O‘ZGARISHLARNI SAQLASH →</button>
+        <a class="cancel" href="{% url 'detail' konspekt.pk %}">
+            BEKOR QILISH
+        </a>
+        <button type="button" onclick="showPreview()">
+            OLDINDAN KO‘RISH
+        </button>
+    </div>
 </form>
+
+<div class="preview" id="preview">
+    <h2>MATN KO‘RINISHI</h2>
+    <div class="preview-content" id="previewContent"></div>
+</div>
+</section>
+
 </main>
+
+<footer>© 2026 BOOK SAHIFA</footer>
+
+<script>
+function showPreview() {
+    const text = document.getElementById('matn').value;
+    const preview = document.getElementById('preview');
+    document.getElementById('previewContent').textContent =
+        text || 'Hozircha matn yozilmagan.';
+    preview.style.display = 'block';
+    preview.scrollIntoView({behavior: 'smooth', block: 'nearest'});
+}
+</script>
 </body>
 </html>

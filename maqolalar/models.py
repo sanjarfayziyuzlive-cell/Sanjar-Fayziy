@@ -4,6 +4,7 @@ import bleach
 
 class Konspekt(models.Model):
     sarlavha = models.CharField(max_length=250)
+    muallif = models.CharField(max_length=200, default='Muallif ko‘rsatilmagan')
     matn = models.TextField()
     sana = models.DateTimeField(auto_now_add=True)
     chop_etilgan = models.BooleanField(default=True)

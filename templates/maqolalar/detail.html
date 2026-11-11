@@ -3,160 +3,388 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{{ konspekt.sarlavha }} | Sanjar Fayziy</title>
+<meta name="theme-color" content="#090909">
+<meta name="description" content="{{ konspekt.sarlavha }} — Book Sahifa shaxsiy jurnali.">
+<title>{{ konspekt.sarlavha }} | Book Sahifa</title>
+
 <style>
-*{box-sizing:border-box}
-body{
- margin:0;background:#090909;color:#e9e5dc;
- font-family:Georgia,'Times New Roman',serif;
-}
-main{max-width:850px;margin:auto;padding:35px 25px 80px}
-.back{
- display:inline-block;color:#c6a15a;text-decoration:none;
- font-size:14px;margin-bottom:65px;
-}
-.brand{
- text-align:center;color:#c6a15a;
- letter-spacing:5px;font-size:13px;margin-bottom:45px;
-}
-.line{height:1px;background:#443721;margin:25px 0}
-.date{
- color:#ae9055;font:11px Arial,sans-serif;
- letter-spacing:2px;margin:25px 0;
-}
-h1{
- font-size:clamp(34px,6vw,52px);
- font-weight:normal;line-height:1.3;
- color:#f0e4c8;margin:0;
-}
-.content h1,.content h2,.content h3{color:#e4c47e;line-height:1.5;margin:35px 0 18px}.content blockquote{border-left:3px solid #c6a15a;padding:15px 22px;background:#171717;color:#d6b46a;font-style:italic}.content img{max-width:100%;height:auto;display:block;margin:25px auto;border:1px solid #443721}.content a{color:#d6b46a}.content pre{background:#171717;padding:18px;overflow-x:auto}.content table{width:100%;border-collapse:collapse}.content td,.content th{border:1px solid #443721;padding:10px}.content ul,.content ol{line-height:2;padding-left:28px}.content{
- font-size:19px;line-height:2.05;
- color:#d0cbc1;
- overflow-wrap:anywhere;margin:45px 0;
-}
-.like-area{
- padding:25px 0;border-top:1px solid #332b20;
- border-bottom:1px solid #332b20;
-}
-button{
- background:#c6a15a;color:#100e0a;
- border:0;padding:13px 25px;
- font:15px Georgia,serif;cursor:pointer;
- transition:.2s;
-}
-button:hover{background:#e3c27d}
-h2{font-size:27px;font-weight:normal;color:#e6d3aa;margin:55px 0 25px}
-.comment{
- border-bottom:1px solid #29251f;padding:20px 0;
-}
-.comment strong{color:#d6b46a;font-size:16px}
-.comment p{color:#bbb;line-height:1.8;font-size:16px}
-input,textarea{
- display:block;width:100%;background:#141414;
- border:1px solid #393126;color:#eee;
- padding:15px;margin:12px 0;
- font:16px Georgia,serif;outline:none;
-}
-input:focus,textarea:focus{border-color:#c6a15a}
-textarea{min-height:140px;resize:vertical}
-footer{
- text-align:center;color:#766b58;
- border-top:1px solid #29251f;padding:30px;
- font-size:11px;letter-spacing:3px;
-}
-@media(max-width:600px){
- main{padding:25px 20px 55px}
- .back{margin-bottom:45px}
- .content h1,.content h2,.content h3{color:#e4c47e;line-height:1.5;margin:35px 0 18px}.content blockquote{border-left:3px solid #c6a15a;padding:15px 22px;background:#171717;color:#d6b46a;font-style:italic}.content img{max-width:100%;height:auto;display:block;margin:25px auto;border:1px solid #443721}.content a{color:#d6b46a}.content pre{background:#171717;padding:18px;overflow-x:auto}.content table{width:100%;border-collapse:collapse}.content td,.content th{border:1px solid #443721;padding:10px}.content ul,.content ol{line-height:2;padding-left:28px}.content{font-size:17px;line-height:1.9}
+:root {
+    --bg: #090909;
+    --surface: #14120f;
+    --gold: #c9a45e;
+    --gold-light: #e5cb92;
+    --text: #eee9df;
+    --muted: #a49b8e;
+    --border: rgba(201,164,94,.22);
 }
 
-.share-area{margin:25px 0}
-.telegram-share{
-display:inline-flex;align-items:center;justify-content:center;
-padding:13px 22px;background:#168bd0;color:white;
-text-decoration:none;font:15px Arial,sans-serif;border-radius:4px
-}
-.telegram-share:hover{background:#0875b7}
-@media(max-width:600px){
-main{width:100%;padding:18px 16px 45px}
-.brand{letter-spacing:3px;margin-bottom:30px}
-.back{margin-bottom:30px}
-h1{font-size:30px;line-height:1.35;overflow-wrap:anywhere}
-.content{font-size:17px;line-height:1.85;margin:30px 0}
-.content table{display:block;max-width:100%;overflow-x:auto}
-.content pre{max-width:100%;overflow-x:auto}
-.content img{max-width:100%;height:auto}
-h2{font-size:23px;margin:40px 0 20px}
-.telegram-share{width:100%}
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background:
+        radial-gradient(ellipse at 50% 0%, rgba(151,112,43,.09), transparent 40%),
+        var(--bg);
+    color: var(--text);
+    font-family: Georgia, 'Times New Roman', serif;
 }
 
+main {
+    width: min(820px, calc(100% - 42px));
+    margin: auto;
+    padding: 35px 0 85px;
+}
+
+.back {
+    display: inline-block;
+    color: var(--gold);
+    text-decoration: none;
+    font-size: 14px;
+    margin-bottom: 65px;
+    transition: .2s;
+}
+
+.back:hover { color: var(--gold-light); }
+
+.brand {
+    text-align: center;
+    color: var(--gold-light);
+    font-size: 13px;
+    letter-spacing: 6px;
+    margin-bottom: 25px;
+}
+
+.ornament {
+    width: 65px;
+    height: 1px;
+    background: var(--gold);
+    margin: 25px auto 50px;
+}
+
+.date {
+    color: var(--gold);
+    font: 10px Arial, sans-serif;
+    letter-spacing: 2px;
+    margin: 25px 0;
+}
+
+h1 {
+    font-size: clamp(34px, 6vw, 53px);
+    font-weight: normal;
+    line-height: 1.35;
+    color: var(--gold-light);
+    overflow-wrap: anywhere;
+    margin: 0;
+}
+
+.separator {
+    height: 1px;
+    background: var(--border);
+    margin: 35px 0;
+}
+
+.admin-tools {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin: 25px 0;
+}
+
+.admin-tools a,
+.admin-tools button {
+    display: inline-block;
+    padding: 12px 20px;
+    border: 1px solid var(--gold);
+    background: transparent;
+    color: var(--gold-light);
+    text-decoration: none;
+    font: 11px Arial, sans-serif;
+    letter-spacing: 1px;
+    cursor: pointer;
+}
+
+.admin-tools .delete {
+    border-color: #884343;
+    color: #e5aaaa;
+}
+
+.content {
+    color: #d0cbc1;
+    font-size: 19px;
+    line-height: 2.05;
+    overflow-wrap: anywhere;
+    margin: 45px 0;
+}
+
+.content h1,
+.content h2,
+.content h3 {
+    color: var(--gold-light);
+    line-height: 1.5;
+    margin: 35px 0 18px;
+    font-weight: normal;
+}
+
+.content blockquote {
+    border-left: 3px solid var(--gold);
+    padding: 15px 22px;
+    background: var(--surface);
+    color: var(--gold-light);
+    font-style: italic;
+    margin: 25px 0;
+}
+
+.content img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 30px auto;
+    border: 1px solid var(--border);
+}
+
+.content a { color: var(--gold-light); }
+
+.content pre {
+    background: var(--surface);
+    padding: 18px;
+    overflow-x: auto;
+}
+
+.content table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.content td,
+.content th {
+    border: 1px solid var(--border);
+    padding: 10px;
+}
+
+.content ul,
+.content ol {
+    line-height: 2;
+    padding-left: 28px;
+}
+
+.like-area {
+    padding: 25px 0;
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+}
+
+button {
+    background: var(--gold);
+    color: #100e0a;
+    border: 0;
+    padding: 14px 25px;
+    font: 15px Georgia, serif;
+    cursor: pointer;
+    transition: .2s;
+}
+
+button:hover {
+    background: var(--gold-light);
+}
+
+.share-area { margin: 25px 0 50px; }
+
+.telegram-share {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 22px;
+    background: #168bd0;
+    color: white;
+    text-decoration: none;
+    font: 14px Arial, sans-serif;
+    transition: .2s;
+}
+
+.telegram-share:hover { background: #0875b7; }
+
+h2 {
+    font-size: 26px;
+    font-weight: normal;
+    color: var(--gold-light);
+    margin: 55px 0 25px;
+}
+
+.comment {
+    border-bottom: 1px solid var(--border);
+    padding: 22px 0;
+}
+
+.comment strong {
+    color: var(--gold-light);
+    font-size: 16px;
+}
+
+.comment p {
+    color: #c1baaf;
+    line-height: 1.8;
+    font-size: 16px;
+    overflow-wrap: anywhere;
+}
+
+input,
+textarea {
+    display: block;
+    width: 100%;
+    background: var(--surface);
+    border: 1px solid #393126;
+    color: var(--text);
+    padding: 16px;
+    margin: 13px 0;
+    font: 16px Georgia, serif;
+    outline: none;
+    border-radius: 0;
+}
+
+input:focus,
+textarea:focus { border-color: var(--gold); }
+
+textarea {
+    min-height: 145px;
+    resize: vertical;
+}
+
+footer {
+    text-align: center;
+    color: #756d60;
+    border-top: 1px solid #29251f;
+    padding: 30px 15px;
+    font: 10px Arial, sans-serif;
+    letter-spacing: 3px;
+}
+
+@media(max-width:600px) {
+    main {
+        width: calc(100% - 32px);
+        padding: 22px 0 55px;
+    }
+
+    .back { margin-bottom: 42px; }
+
+    .brand {
+        letter-spacing: 4px;
+        margin-bottom: 20px;
+    }
+
+    h1 {
+        font-size: 31px;
+        line-height: 1.4;
+    }
+
+    .content {
+        font-size: 17px;
+        line-height: 1.9;
+        margin: 32px 0;
+    }
+
+    .content table {
+        display: block;
+        max-width: 100%;
+        overflow-x: auto;
+    }
+
+    .content pre { max-width: 100%; }
+
+    .content img { max-width: 100%; }
+
+    h2 {
+        font-size: 23px;
+        margin: 42px 0 20px;
+    }
+
+    .telegram-share { width: 100%; }
+
+    .admin-tools a,
+    .admin-tools button {
+        flex: 1;
+        text-align: center;
+    }
+}
 </style>
 </head>
+
 <body>
 <main>
+
 <a class="back" href="/">← Bosh sahifa</a>
 
-<div class="brand">SANJAR FAYZIY</div>
-<div class="line"></div>
+<div class="brand">BOOK SAHIFA</div>
+<div class="ornament"></div>
 
 <div class="date">{{ konspekt.sana|date:"d / m / Y" }}</div>
+
 <h1>{{ konspekt.sarlavha }}</h1>
 
-<div class="line"></div>
+<p style="color:#c9a45e; font-size:15px; margin-top:18px;">
+    Muallif: <strong>{{ konspekt.muallif }}</strong>
+</p>
+
+<div class="separator"></div>
 
 {% if user.is_authenticated and user.is_staff %}
-<div style="display:flex;gap:12px;margin:25px 0;flex-wrap:wrap">
-<a href="{% url 'tahrirlash' konspekt.pk %}" style="padding:12px 20px;background:#c6a15a;color:#090909;text-decoration:none">✎ TAHRIRLASH</a>
-<form method="post" action="{% url 'ochirish' konspekt.pk %}" onsubmit="return confirm('Ushbu konspektni butunlay o‘chirmoqchimisiz?')">
-{% csrf_token %}
-<button type="submit" style="padding:12px 20px;background:#742f2f;color:white;border:0">O‘CHIRISH</button>
-</form>
+<div class="admin-tools">
+    <a href="{% url 'tahrirlash' konspekt.pk %}">✎ TAHRIRLASH</a>
+
+    <form method="post"
+          action="{% url 'ochirish' konspekt.pk %}"
+          onsubmit="return confirm('Ushbu maqolani butunlay o‘chirmoqchimisiz?')">
+        {% csrf_token %}
+        <button type="submit" class="delete">O‘CHIRISH</button>
+    </form>
 </div>
 {% endif %}
 
 <article class="content">{{ konspekt.html_matn|safe }}</article>
 
 <div class="like-area">
-<form method="post" action="{% url 'like' konspekt.pk %}">
-{% csrf_token %}
-<button type="submit">
-♥ &nbsp; {{ konspekt.layklar.count }} ta layk
-</button>
-</form>
+    <form method="post" action="{% url 'like' konspekt.pk %}">
+        {% csrf_token %}
+        <button type="submit">
+            ♥ &nbsp; {{ konspekt.layklar.count }} ta layk
+        </button>
+    </form>
 </div>
 
-
 <div class="share-area">
-<a class="telegram-share"
-href="https://t.me/share/url?url={{ request.build_absolute_uri|urlencode }}&text={{ konspekt.sarlavha|urlencode }}"
-target="_blank" rel="noopener noreferrer">
-✈ Telegram orqali ulashish
-</a>
+    <a class="telegram-share"
+       href="https://t.me/share/url?url={{ request.build_absolute_uri|urlencode }}&text={{ konspekt.sarlavha|urlencode }}"
+       target="_blank" rel="noopener noreferrer">
+        ✈ Telegram orqali ulashish
+    </a>
 </div>
 
 <h2>Izohlar — {{ izohlar.count }}</h2>
 
 {% for izoh in izohlar %}
 <div class="comment">
-<strong>{{ izoh.ism }}</strong>
-<div class="date">{{ izoh.sana|date:"d.m.Y · H:i" }}</div>
-<p>{{ izoh.matn }}</p>
+    <strong>{{ izoh.ism }}</strong>
+    <div class="date">{{ izoh.sana|date:"d.m.Y · H:i" }}</div>
+    <p>{{ izoh.matn }}</p>
 </div>
 {% empty %}
 <p style="color:#888">Hozircha izohlar mavjud emas.</p>
 {% endfor %}
 
 <h2>O‘z fikringizni yozing</h2>
+
 <form method="post" action="{% url 'comment' konspekt.pk %}">
-{% csrf_token %}
-<input name="ism" maxlength="100"
-placeholder="Ismingiz" required>
-<textarea name="matn" maxlength="2000"
-placeholder="Mulohazangiz..." required></textarea>
-<button type="submit">Izohni yuborish →</button>
+    {% csrf_token %}
+    <input name="ism" maxlength="100"
+           placeholder="Ismingiz" required>
+    <textarea name="matn" maxlength="2000"
+              placeholder="Mulohazangiz..." required></textarea>
+    <button type="submit">Izohni yuborish →</button>
 </form>
+
 </main>
 
-<footer>© 2026 SANJAR FAYZIY</footer>
+<footer>
+    © 2026 BOOK SAHIFA · BARCHA HUQUQLAR HIMOYALANGAN
+</footer>
 </body>
 </html>
