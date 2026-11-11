@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Konspektni tahrirlash | Sanjar Fayziy</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#090909;color:#eee;font-family:Georgia,serif}
+main{max-width:850px;margin:45px auto;padding:20px}
+a{color:#c6a15a;text-decoration:none}
+h1{color:#d6b46a;font-weight:normal;margin:35px 0}
+label{display:block;color:#c6a15a;margin:22px 0 10px}
+input,textarea{width:100%;padding:16px;background:#151515;color:#eee;border:1px solid #493b27;font:17px Georgia}
+textarea{min-height:400px;line-height:1.8;resize:vertical}
+button{margin-top:22px;padding:15px 28px;background:#c6a15a;color:#090909;border:0;font-size:15px;cursor:pointer}
+</style>
+</head>
+<body>
+<main>
+<a href="{% url 'detail' konspekt.pk %}">← Konspektga qaytish</a>
+<h1>Konspektni tahrirlash</h1>
+<form method="post">
+{% csrf_token %}
+<label>Sarlavha</label>
+<input name="sarlavha" value="{{ konspekt.sarlavha }}" required>
+<label>Matn</label>
+<textarea name="matn" required>{{ konspekt.matn }}</textarea>
+<button type="submit">O‘ZGARISHLARNI SAQLASH</button>
+</form>
+</main>
+</body>
+</html>

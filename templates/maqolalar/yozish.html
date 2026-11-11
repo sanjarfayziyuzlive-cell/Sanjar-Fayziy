@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Konspekt yozish | Sanjar Fayziy</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#090909;color:#eee;font-family:Georgia,serif}
+main{max-width:850px;margin:55px auto;padding:20px}
+h1{color:#d6b46a;font-weight:normal}
+label{display:block;color:#c6a15a;margin:24px 0 10px}
+input,textarea{width:100%;padding:16px;background:#151515;color:#eee;border:1px solid #493b27;font:16px Georgia}
+textarea{min-height:350px;line-height:1.8;resize:vertical}
+button{margin-top:22px;padding:15px 28px;background:#c6a15a;color:#090909;border:0;font-weight:bold;font-size:15px}
+a{color:#c6a15a;text-decoration:none}
+.error{color:#ff7777}
+.note{color:#888;line-height:1.7;font-size:14px}
+</style>
+</head>
+<body>
+<main>
+<a href="/">← Bosh sahifa</a>
+<h1>Yangi konspekt</h1>
+<p class="note">Fikrlaringizni, mulohazalaringizni va o‘qiganlaringiz haqidagi qaydlarni yozing.</p>
+
+{% if xato %}
+<p class="error">{{ xato }}</p>
+{% endif %}
+
+<form method="post">
+{% csrf_token %}
+<label>Konspekt sarlavhasi</label>
+<input type="text" name="sarlavha" placeholder="Sarlavha..." required>
+
+<label>Konspekt matni</label>
+<textarea name="matn" placeholder="Yozishni boshlang..." required></textarea>
+
+<p class="note">Markdown formatidan foydalanishingiz mumkin: ## Sarlavha, **qalin matn**, *kursiv matn*.</p>
+<button type="submit">CHOP ETISH</button>
+</form>
+</main>
+</body>
+</html>
