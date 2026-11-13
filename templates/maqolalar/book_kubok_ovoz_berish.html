@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:650px;margin:40px auto;padding:25px;background:#111;color:#f5e6c3;border:1px solid #c9a45e;border-radius:14px">
+    <h1 style="text-align:center;color:#d6b45b">BOOK KUBOK</h1>
+    <h2 style="text-align:center">G‘olibni aniqlash uchun ovoz bering</h2>
+
+    <p style="text-align:center">
+        Ovoz berish muddati: 6 soat
+    </p>
+
+    {% if xato %}
+        <p style="color:#ff7777;text-align:center">{{ xato }}</p>
+    {% endif %}
+
+    {% if xabar %}
+        <p style="color:#8fd19e;text-align:center">{{ xabar }}</p>
+    {% endif %}
+
+    <div style="display:grid;gap:15px;margin-top:25px">
+        <div style="padding:18px;border:1px solid #c9a45e;border-radius:10px">
+            <h3>{{ duel.ishtirokchi_1.ism }} {{ duel.ishtirokchi_1.familiya }}</h3>
+            <p>Ovozlar: {{ ovoz_1 }}</p>
+            {% if not muddat_tugagan %}
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="ishtirokchi" value="{{ duel.ishtirokchi_1_id }}">
+                <button style="width:100%;padding:13px;background:#d6b45b;color:#111;border:0;border-radius:8px;font-weight:bold">OVOZ BERISH</button>
+            </form>
+            {% endif %}
+        </div>
+
+        <div style="padding:18px;border:1px solid #c9a45e;border-radius:10px">
+            <h3>{{ duel.ishtirokchi_2.ism }} {{ duel.ishtirokchi_2.familiya }}</h3>
+            <p>Ovozlar: {{ ovoz_2 }}</p>
+            {% if not muddat_tugagan %}
+            <form method="post">
+                {% csrf_token %}
+                <input type="hidden" name="ishtirokchi" value="{{ duel.ishtirokchi_2_id }}">
+                <button style="width:100%;padding:13px;background:#d6b45b;color:#111;border:0;border-radius:8px;font-weight:bold">OVOZ BERISH</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+
+    {% if muddat_tugagan %}
+        <p style="text-align:center;color:#d6b45b">Ovoz berish muddati tugadi.</p>
+    {% endif %}
+
+    <p style="text-align:center;margin-top:25px">
+        <a href="{% url 'book_kubok' %}" style="color:#d6b45b">Book Kubok sahifasiga qaytish</a>
+    </p>
+</div>
+
+    {% if muddat_tugagan %}
+        <form method="post" action="{% url 'book_kubok_ovoz_yakunlash' duel.id %}" style="text-align:center;margin-top:25px">
+            {% csrf_token %}
+            <button type="submit" style="padding:14px 24px;background:#d6b45b;color:#111;border:0;border-radius:8px;font-weight:bold">
+                OVOZ BERISHNI YAKUNLASH
+            </button>
+        </form>
+    {% endif %}
+
+
+    {% if admin_teng_ovoz %}
+        <div style="margin-top:25px;padding:20px;border:1px solid #d6b45b;border-radius:10px">
+            <h3 style="color:#d6b45b">Administrator qarori</h3>
+            <p>Ovozlar teng. G‘olibni tanlang:</p>
+            <form method="post" action="{% url 'book_kubok_admin_golib_tanlash' duel.id %}">
+                {% csrf_token %}
+                <button name="golib" value="{{ duel.ishtirokchi_1_id }}" type="submit">
+                    {{ duel.ishtirokchi_1.ism }} {{ duel.ishtirokchi_1.familiya }}
+                </button>
+                <button name="golib" value="{{ duel.ishtirokchi_2_id }}" type="submit">
+                    {{ duel.ishtirokchi_2.ism }} {{ duel.ishtirokchi_2.familiya }}
+                </button>
+            </form>
+        </div>
+    {% endif %}
+
+{% endblock %}

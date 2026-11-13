@@ -1,0 +1,318 @@
+
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090909">
+<title>Book Kubok | Book Sahifa</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+    margin: 0;
+    background: radial-gradient(ellipse at top, #211b10, #090909 65%);
+    color: #eee9df;
+    font-family: Georgia, serif;
+}
+
+.container {
+    max-width: 1200px;
+    margin: auto;
+    padding: 35px 18px 80px;
+}
+
+.back {
+    color: #c9a45e;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+}
+
+.hero {
+    text-align: center;
+    padding: 55px 0 35px;
+}
+
+.hero small {
+    color: #c9a45e;
+    letter-spacing: 5px;
+}
+
+.hero h1 {
+    color: #e4c98e;
+    font-size: clamp(35px, 7vw, 65px);
+    font-weight: normal;
+    letter-spacing: 5px;
+    margin: 20px 0 10px;
+}
+
+.hero p { color: #999187; }
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    max-width: 650px;
+    margin: 30px auto 55px;
+}
+
+.stat {
+    text-align: center;
+    background: #15130f;
+    border: 1px solid #59472a;
+    padding: 18px 5px;
+}
+
+.stat strong {
+    display: block;
+    color: #e4c98e;
+    font-size: 28px;
+}
+
+.stat span {
+    color: #999187;
+    font: 11px Arial, sans-serif;
+}
+
+.section-title {
+    text-align: center;
+    color: #e4c98e;
+    font-size: 25px;
+    font-weight: normal;
+    margin: 50px 0 30px;
+}
+
+.register {
+    max-width: 520px;
+    margin: auto;
+    padding: 25px;
+    background: #12110e;
+    border: 1px solid #59472a;
+}
+
+.register h2 {
+    color: #d9b66e;
+    text-align: center;
+    font-weight: normal;
+}
+
+.register input {
+    width: 100%;
+    padding: 14px;
+    margin: 8px 0;
+    background: #090909;
+    color: white;
+    border: 1px solid #59472a;
+    outline: none;
+}
+
+.register button {
+    width: 100%;
+    padding: 15px;
+    margin-top: 12px;
+    background: #c9a45e;
+    color: #090909;
+    border: none;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.bracket {
+    display: grid;
+    grid-template-columns: minmax(0,1fr) minmax(0,1fr);
+    gap: 35px;
+}
+
+.side { min-width: 0; }
+
+.side h3 {
+    text-align: center;
+    color: #c9a45e;
+    font-weight: normal;
+    letter-spacing: 2px;
+}
+
+.duel {
+    background: linear-gradient(135deg, #19160f, #0e0e0d);
+    border: 1px solid #59472a;
+    padding: 14px;
+    margin: 12px 0;
+    position: relative;
+}
+
+.duel small {
+    color: #c9a45e;
+    font: 10px Arial, sans-serif;
+}
+
+.player {
+    display: flex;
+    justify-content: space-between;
+    gap: 5px;
+    padding: 9px 0;
+    border-bottom: 1px solid #302719;
+    font-size: 13px;
+    overflow-wrap: anywhere;
+}
+
+.player:last-child { border: 0; }
+
+.center-final {
+    max-width: 400px;
+    margin: 35px auto;
+    padding: 25px;
+    text-align: center;
+    background: linear-gradient(135deg, #29200e, #11100e);
+    border: 1px solid #c9a45e;
+}
+
+.center-final h2 {
+    color: #e4c98e;
+    letter-spacing: 4px;
+}
+
+.center-final p { color: #999187; }
+
+.empty {
+    text-align: center;
+    color: #999187;
+    padding: 35px 15px;
+    border: 1px dashed #59472a;
+}
+
+.footer {
+    text-align: center;
+    color: #8e8066;
+    margin-top: 65px;
+    font-size: 13px;
+}
+
+@media(max-width:600px) {
+    .container { padding-left: 12px; padding-right: 12px; }
+    .bracket { gap: 12px; }
+    .duel { padding: 9px 7px; }
+    .player { font-size: 11px; }
+    .side h3 { font-size: 13px; }
+}
+</style>
+</head>
+
+<body>
+<div class="container">
+
+<a class="back" href="/">← Book Sahifa</a>
+
+<header class="hero">
+    <small>BOOK SAHIFA TAQDIM ETADI</small>
+    <h1>BOOK KUBOK</h1>
+    <p>Adabiyot bilimdonlari o‘rtasidagi 16 kishilik turnir</p>
+</header>
+{% if request.user.is_authenticated and request.user.is_staff %}
+<div style="text-align:center;margin:15px">
+    <a href="{% url 'book_kubok_boshqaruv' %}"
+       style="color:#e4c98e;border:1px solid #b18b3c;padding:12px 22px;border-radius:8px;text-decoration:none">
+       TURNIRNI BOSHQARISH
+    </a>
+</div>
+{% endif %}
+
+
+<div class="stats">
+    <div class="stat">
+        <strong>{{ ishtirokchilar|length }}/16</strong>
+        <span>ISHTIROKCHI</span>
+    </div>
+    <div class="stat">
+        <strong>15</strong>
+        <span>DUEL</span>
+    </div>
+    <div class="stat">
+        <strong>5</strong>
+        <span>HAR DUELDA TEST</span>
+    </div>
+</div>
+
+{% if turnir and not turnir.royxat_yopilgan %}
+<section class="register">
+    <h2>Turnirda qatnashing</h2>
+    <p style="text-align:center;color:#999187">
+        Ism, familiya va telefon raqamingizni kiriting.
+    </p>
+
+    {% if xato %}
+    <p style="color:#ff7777;text-align:center">{{ xato }}</p>
+    {% endif %}
+
+    <form method="post" action="">
+        {% csrf_token %}
+        <input name="ism" placeholder="Ismingiz" required>
+        <input name="familiya" placeholder="Familiyangiz" required>
+        <input name="telefon" placeholder="Telefon raqamingiz" required>
+        <button type="submit">TURNIRGA QO‘SHILISH</button>
+    </form>
+</section>
+{% endif %}
+
+{% if turnir and turnir.qura_tashlangan %}
+<div style="text-align:center;margin:30px auto">
+    <a href="{% url 'book_kubok_duel_kirish' %}"
+       style="display:inline-block;padding:16px 35px;background:#c9a45e;color:#090909;text-decoration:none;font-weight:bold;letter-spacing:2px">
+        DUELGA KIRISH
+    </a>
+</div>
+{% endif %}
+
+<h2 class="section-title">TURNIR JADVALI</h2>
+
+{% if turnir and turnir.qura_tashlangan %}
+
+<div class="bracket">
+    <div class="side">
+        <h3>CHAP TOMON</h3>
+        {% for duel in duellar %}
+            {% if duel.raqam <= 4 and duel.bosqich == '1/8' %}
+            <div class="duel">
+                <small>1/8 FINAL · DUEL {{ duel.raqam }}</small>
+                <div class="player">{{ duel.ishtirokchi_1.ism }} {{ duel.ishtirokchi_1.familiya }}</div>
+                <div class="player">{{ duel.ishtirokchi_2.ism }} {{ duel.ishtirokchi_2.familiya }}</div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+
+    <div class="side">
+        <h3>O‘NG TOMON</h3>
+        {% for duel in duellar %}
+            {% if duel.raqam > 4 and duel.bosqich == '1/8' %}
+            <div class="duel">
+                <small>1/8 FINAL · DUEL {{ duel.raqam }}</small>
+                <div class="player">{{ duel.ishtirokchi_1.ism }} {{ duel.ishtirokchi_1.familiya }}</div>
+                <div class="player">{{ duel.ishtirokchi_2.ism }} {{ duel.ishtirokchi_2.familiya }}</div>
+            </div>
+            {% endif %}
+        {% endfor %}
+    </div>
+</div>
+
+<div class="center-final">
+    <h2>FINAL</h2>
+    <p>Ikki tomon g‘oliblari markazda uchrashadi</p>
+    <strong style="color:#e4c98e">BOOK KUBOK CHEMPIONI</strong>
+</div>
+
+{% else %}
+<div class="empty">
+    <h3>Ochiq qur’a hali tashlanmagan</h3>
+    <p>16 ishtirokchi to‘plangach, juftliklar e’lon qilinadi.</p>
+</div>
+{% endif %}
+
+<div class="footer">
+    BOOK SAHIFA · BOOK KUBOK
+</div>
+
+</div>
+</body>
+</html>
+

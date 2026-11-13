@@ -2,6 +2,19 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
+    path('book-kubok/boshqaruv/savol/<int:savol_id>/faollashtirish/', views.book_kubok_savol_faollashtirish, name='book_kubok_savol_faollashtirish'),
+    path('book-kubok/boshqaruv/savol/<int:savol_id>/ochirish/', views.book_kubok_savol_ochirish, name='book_kubok_savol_ochirish'),
+    path('book-kubok/boshqaruv/savol/<int:savol_id>/tahrirlash/', views.book_kubok_savol_tahrirlash, name='book_kubok_savol_tahrirlash'),
+    path('book-kubok/boshqaruv/savollar/', views.book_kubok_savollar, name='book_kubok_savollar'),
+    path('book-kubok/', views.book_kubok, name='book_kubok'),
+    path('book-kubok/duelga-kirish/', views.book_kubok_duel_kirish, name='book_kubok_duel_kirish'),
+    path('book-kubok/duel/<int:duel_id>/', views.book_kubok_duel_test, name='book_kubok_duel_test'),
+    path('book-kubok/ovoz-berish/<int:duel_id>/', views.book_kubok_ovoz_berish, name='book_kubok_ovoz_berish'),
+    path('book-kubok/ovoz-yakunlash/<int:duel_id>/', views.book_kubok_ovoz_yakunlash, name='book_kubok_ovoz_yakunlash'),
+    path('book-kubok/admin-golib/<int:duel_id>/', views.book_kubok_admin_golib_tanlash, name='book_kubok_admin_golib_tanlash'),
+    path('book-kubok/boshqaruv/', views.book_kubok_boshqaruv, name='book_kubok_boshqaruv'),
+    path('book-kubok/boshqaruv/qura-tashlash/', views.book_kubok_qura_tashlash, name='book_kubok_qura_tashlash'),
+    path('book-kubok/boshqaruv/savol-qoshish/', views.book_kubok_savol_qoshish, name='book_kubok_savol_qoshish'),
     path('egasi/kirish/', views.egasi_kirish, name='egasi_kirish'),
     path('egasi/chiqish/', views.egasi_chiqish, name='egasi_chiqish'),
     path('', views.home, name='home'),
@@ -11,5 +24,7 @@ urlpatterns = [
     path('konspekt/<int:pk>/ochirish/', views.ochirish, name='ochirish'),
     path('konspekt/<int:pk>/layk/', views.like, name='like'),
     path('konspekt/<int:pk>/izoh/', views.comment, name='comment'),
+    path('bildirishnomalar/', views.bildirishnomalar, name='bildirishnomalar'),
+    path('bildirishnomalar/<int:pk>/oqish/', views.bildirishnoma_oqish, name='bildirishnoma_oqish'),
     path('konspekt-preview/', views.preview, name='konspekt_preview'),
 ]

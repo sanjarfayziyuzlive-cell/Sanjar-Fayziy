@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090909">
+<title>Book Kubok — Duel testi</title>
+<style>
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: 22px 15px 50px;
+    background: radial-gradient(ellipse at top,#211b10,#090909 70%);
+    color: #eee9df;
+    font-family: Georgia,serif;
+}
+.container { max-width: 650px; margin: auto; }
+.brand {
+    text-align: center;
+    color: #c9a45e;
+    letter-spacing: 5px;
+    font-size: 12px;
+    margin: 25px 0;
+}
+h1 {
+    text-align: center;
+    color: #e4c98e;
+    font-size: 30px;
+    font-weight: normal;
+    letter-spacing: 3px;
+}
+.panel {
+    background: #12110e;
+    border: 1px solid #59472a;
+    padding: 28px 23px;
+    margin-top: 25px;
+    box-shadow: 0 15px 45px #0008;
+}
+.info {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    color: #c9a45e;
+    font-family: Arial,sans-serif;
+    font-size: 13px;
+}
+.timer {
+    text-align: center;
+    margin: 30px 0;
+}
+.timer strong {
+    display: block;
+    color: #e4c98e;
+    font-size: 55px;
+    font-weight: normal;
+}
+.timer span { color: #999187; font-size: 12px; }
+.progress {
+    height: 5px;
+    background: #393126;
+    margin-top: 15px;
+}
+.progress div {
+    height: 100%;
+    width: 100%;
+    background: #c9a45e;
+    transition: width 1s linear;
+}
+.question {
+    font-size: 21px;
+    line-height: 1.6;
+    margin: 25px 0;
+}
+.option {
+    display: block;
+    padding: 15px;
+    margin: 11px 0;
+    border: 1px solid #59472a;
+    background: #090909;
+    cursor: pointer;
+    line-height: 1.5;
+}
+.option:has(input:checked) {
+    border-color: #e4c98e;
+    background: #282013;
+}
+.option input { accent-color: #c9a45e; margin-right: 10px; }
+button {
+    width: 100%;
+    margin-top: 20px;
+    padding: 16px;
+    background: #c9a45e;
+    color: #090909;
+    border: 0;
+    font-weight: bold;
+    letter-spacing: 2px;
+    cursor: pointer;
+}
+.message {
+    text-align: center;
+    padding: 35px 15px;
+    line-height: 1.8;
+}
+.message h2 { color: #e4c98e; font-weight: normal; }
+.score {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0;
+    border-bottom: 1px solid #59472a;
+}
+.back {
+    display: block;
+    text-align: center;
+    color: #c9a45e;
+    margin-top: 25px;
+    text-decoration: none;
+}
+.error { color: #ff7777; text-align: center; }
+@media(max-width:480px) {
+    .panel { padding: 23px 16px; }
+    .question { font-size: 19px; }
+}
+</style>
+</head>
+<body>
+<div class="container">
+    <div class="brand">BOOK SAHIFA TAQDIM ETADI</div>
+    <h1>BOOK KUBOK</h1>
+
+    <div class="panel">
+
+    {% if xato %}
+        <div class="message">
+            <h2>Diqqat!</h2>
+            <p class="error">{{ xato }}</p>
+        </div>
+
+    {% elif muddat_otgan %}
+        <div class="message">
+            <h2>Vaqt tugadi</h2>
+            <p>Testni boshlash muddati o‘tib ketgan.</p>
+        </div>
+
+    {% elif yakunlangan %}
+        <div class="message">
+            <h2>Duel yakunlandi</h2>
+            <p>Natijalar:</p>
+            {% for natija in natijalar %}
+                <div class="score">
+                    <span>{{ natija.ishtirokchi.ism }} {{ natija.ishtirokchi.familiya }}</span>
+                    <strong>{{ natija.ball }} / 5</strong>
+                </div>
+            {% endfor %}
+            {% if duel.golib %}
+                <h2>G‘olib: {{ duel.golib.ism }} {{ duel.golib.familiya }}</h2>
+            {% else %}
+                <p>Natija durang. Qo‘shimcha hal qiluvchi tartib talab etiladi.</p>
+            {% endif %}
+        </div>
+
+    {% elif kutish %}
+        <div class="message">
+            <h2>Test yakunlandi!</h2>
+            <p>Raqibingiz testni tugatishini kuting.</p>
+            <p>Raqibingiz tugatmaguncha natijalar oshkor qilinmaydi.</p>
+            <button onclick="location.reload()">HOLATNI TEKSHIRISH</button>
+        </div>
+
+    {% elif savol %}
+        <div class="info">
+            <span>DUEL № {{ duel.raqam }}</span>
+            <span>{{ savol_tartibi }} / 5-SAVOL</span>
+        </div>
+
+        <div class="timer">
+            <strong id="seconds">{{ qolgan_vaqt }}</strong>
+            <span>SONIYA QOLDI</span>
+            <div class="progress"><div id="bar"></div></div>
+        </div>
+
+        <div class="question">{{ savol.savol }}</div>
+
+        <form method="post" id="answerForm">
+            {% csrf_token %}
+            <label class="option">
+                <input type="radio" name="javob" value="A" required>
+                <strong>A.</strong> {{ savol.variant_a }}
+            </label>
+            <label class="option">
+                <input type="radio" name="javob" value="B">
+                <strong>B.</strong> {{ savol.variant_b }}
+            </label>
+            <label class="option">
+                <input type="radio" name="javob" value="C">
+                <strong>C.</strong> {{ savol.variant_c }}
+            </label>
+            <label class="option">
+                <input type="radio" name="javob" value="D">
+                <strong>D.</strong> {{ savol.variant_d }}
+            </label>
+            <button type="submit" id="submitBtn">JAVOBNI TASDIQLASH</button>
+        </form>
+
+        <script>
+        (function() {
+            let left = Number({{ qolgan_vaqt|default:20 }});
+            const seconds = document.getElementById('seconds');
+            const bar = document.getElementById('bar');
+            const form = document.getElementById('answerForm');
+            const button = document.getElementById('submitBtn');
+            let sent = false;
+
+            function update() {
+                seconds.textContent = left;
+                bar.style.width = (left / 20 * 100) + '%';
+
+                if (left <= 0 && !sent) {
+                    sent = true;
+                    button.disabled = true;
+                    const choice = form.querySelector('input[name="javob"]:checked');
+                    if (!choice) {
+                        const hidden = document.createElement('input');
+                        hidden.type = 'hidden';
+                        hidden.name = 'javob';
+                        hidden.value = '';
+                        form.appendChild(hidden);
+                    }
+                    form.submit();
+                    return;
+                }
+                left--;
+                if (left >= 0) setTimeout(update, 1000);
+            }
+
+            form.addEventListener('submit', function(event) {
+                if (sent) {
+                    event.preventDefault();
+                    return;
+                }
+                sent = true;
+                button.disabled = true;
+            });
+
+            update();
+        })();
+        </script>
+
+    {% else %}
+        <div class="message">
+            <h2>Book Kubok</h2>
+            <p>Test holati aniqlanmadi.</p>
+        </div>
+    {% endif %}
+
+    </div>
+    <a class="back" href="{% url 'book_kubok' %}">← Book Kubok sahifasiga qaytish</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#090909">
+<title>Duelga kirish | Book Kubok</title>
+<style>
+* { box-sizing: border-box; }
+body {
+    margin: 0;
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
+    padding: 20px;
+    background: radial-gradient(ellipse at top, #211b10, #090909 65%);
+    color: #eee9df;
+    font-family: Georgia, serif;
+}
+.panel {
+    width: 100%;
+    max-width: 440px;
+    padding: 32px 25px;
+    background: #12110e;
+    border: 1px solid #8c6b32;
+    box-shadow: 0 15px 50px #0009;
+}
+small {
+    display: block;
+    color: #c9a45e;
+    text-align: center;
+    letter-spacing: 4px;
+}
+h1 {
+    color: #e4c98e;
+    text-align: center;
+    font-size: 32px;
+    font-weight: normal;
+    letter-spacing: 3px;
+}
+p {
+    color: #999187;
+    text-align: center;
+    line-height: 1.6;
+}
+input {
+    width: 100%;
+    margin: 8px 0;
+    padding: 15px;
+    color: white;
+    background: #090909;
+    border: 1px solid #59472a;
+    outline: none;
+}
+input:focus { border-color: #c9a45e; }
+button {
+    width: 100%;
+    margin-top: 15px;
+    padding: 15px;
+    border: 0;
+    background: #c9a45e;
+    color: #090909;
+    font-weight: bold;
+    cursor: pointer;
+}
+.error {
+    color: #ff7777;
+    text-align: center;
+}
+.back {
+    display: block;
+    margin-top: 22px;
+    color: #c9a45e;
+    text-align: center;
+    text-decoration: none;
+    font-family: Arial, sans-serif;
+}
+</style>
+</head>
+<body>
+<div class="panel">
+    <small>BOOK SAHIFA TAQDIM ETADI</small>
+    <h1>BOOK KUBOK</h1>
+    <p>Duelingizga kirish uchun ro‘yxatdan o‘tgan ma’lumotlaringizni kiriting.</p>
+
+    {% if xato %}
+    <div class="error">{{ xato }}</div>
+    {% endif %}
+
+    <form method="post">
+        {% csrf_token %}
+        <input name="ism" placeholder="Ismingiz" maxlength="100" required>
+        <input name="familiya" placeholder="Familiyangiz" maxlength="100" required>
+        <input name="telefon" type="tel" placeholder="Telefon raqamingiz" maxlength="20" required>
+        <button type="submit">DUELGA KIRISH</button>
+    </form>
+
+    <a class="back" href="{% url 'book_kubok' %}">← Book Kubok sahifasiga qaytish</a>
+</div>
+</body>
+</html>

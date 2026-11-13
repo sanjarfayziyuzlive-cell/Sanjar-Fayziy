@@ -316,7 +316,12 @@ footer {
 <div class="brand">BOOK SAHIFA</div>
 <div class="ornament"></div>
 
-<div class="date">{{ konspekt.sana|date:"d / m / Y" }}</div>
+<div class="date">
+    {{ konspekt.sana|date:"d / m / Y" }}
+    <span style="margin-left:15px; color:#a49b8e;">
+        👁 {{ konspekt.korishlar }} marta ko‘rildi
+    </span>
+</div>
 
 <h1>{{ konspekt.sarlavha }}</h1>
 

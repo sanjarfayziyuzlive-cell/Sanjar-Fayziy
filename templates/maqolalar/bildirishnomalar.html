@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bildirishnomalar | Book Sahifa</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#090909;color:#eee9df;font-family:Georgia,serif}
+main{width:min(750px,calc(100% - 32px));margin:60px auto}
+h1{color:#e4c98e;font-weight:normal;font-size:32px}
+.sub{color:#999187;font:12px Arial;margin-bottom:30px}
+.item{padding:22px;margin-bottom:13px;background:#15130f;border:1px solid rgba(201,164,94,.25)}
+.item p{line-height:1.7;margin:0 0 12px}
+.date{color:#a99b83;font:11px Arial}
+.unread{border-left:3px solid #c9a45e}
+button{background:transparent;color:#e4c98e;border:1px solid #c9a45e;padding:10px 15px;cursor:pointer;margin-top:12px}
+a{color:#e4c98e;text-decoration:none}
+.back{display:inline-block;margin-top:30px}
+.empty{padding:30px;text-align:center;border:1px solid #302719;color:#999}
+</style>
+</head>
+<body>
+<main>
+<h1>Bildirishnomalar</h1>
+<div class="sub">BOOK SAHIFA · SAYT EGASI UCHUN</div>
+
+{% for x in xabarlar %}
+<div class="item {% if not x.oqilgan %}unread{% endif %}">
+<p>{{ x.xabar }}</p>
+<div class="date">{{ x.sana|date:"d.m.Y H:i" }}</div>
+{% if not x.oqilgan %}
+<form method="post" action="{% url 'bildirishnoma_oqish' x.pk %}">
+{% csrf_token %}
+<button type="submit">O‘qildi deb belgilash</button>
+</form>
+{% endif %}
+<a href="{% url 'detail' x.konspekt.pk %}">Maqolani ochish →</a>
+</div>
+{% empty %}
+<div class="empty">Hozircha bildirishnomalar yo‘q.</div>
+{% endfor %}
+
+<a class="back" href="{% url 'home' %}">← Bosh sahifaga qaytish</a>
+</main>
+</body>
+</html>

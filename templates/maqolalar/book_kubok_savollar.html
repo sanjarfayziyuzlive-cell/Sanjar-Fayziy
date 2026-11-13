@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:950px;margin:35px auto;padding:22px;background:#111;color:#f5e6c3;border:1px solid #c9a45e;border-radius:14px">
+    <h1 style="text-align:center;color:#d6b45b">BOOK KUBOK — SAVOLLAR BAZASI</h1>
+
+    <p>Jami savollar: {{ savollar.count }}</p>
+<div style="margin:20px 0">
+    <a href="{% url 'book_kubok_savol_qoshish' %}"
+       style="display:inline-block;padding:13px 22px;background:#d6b45b;color:#111;border-radius:8px;font-weight:bold">
+       + YANGI SAVOL QO‘SHISH
+    </a>
+</div>
+
+
+    <a href="{% url 'book_kubok_boshqaruv' %}" style="color:#d6b45b">← Boshqaruv paneliga qaytish</a>
+
+    {% for savol in savollar %}
+    <div style="margin-top:20px;padding:18px;border:1px solid #806b3e;border-radius:10px">
+        <h3>{{ forloop.counter }}. {{ savol.savol }}</h3>
+
+        <p>A) {{ savol.variant_a }}</p>
+        <p>B) {{ savol.variant_b }}</p>
+        <p>C) {{ savol.variant_c }}</p>
+        <p>D) {{ savol.variant_d }}</p>
+        <p>To‘g‘ri javob: <strong>{{ savol.togri_javob }}</strong></p>
+
+        <p>Holati:
+            {% if savol.faol %}
+                <span style="color:#8fd19e">Faol</span>
+            {% else %}
+                <span style="color:#ff7777">Faol emas</span>
+            {% endif %}
+        </p>
+
+        <a href="{% url 'book_kubok_savol_tahrirlash' savol.id %}" style="color:#d6b45b">Tahrirlash</a>
+
+        <form method="post" action="{% url 'book_kubok_savol_faollashtirish' savol.id %}" style="display:inline">
+            {% csrf_token %}
+            <button type="submit">Faollikni o‘zgartirish</button>
+        </form>
+
+        <form method="post" action="{% url 'book_kubok_savol_ochirish' savol.id %}" style="display:inline" onsubmit="return confirm('Savolni o‘chirish yoki faolsizlantirishni tasdiqlaysizmi?')">
+            {% csrf_token %}
+            <button type="submit">O‘chirish</button>
+        </form>
+    </div>
+    {% empty %}
+        <p>Hozircha savollar mavjud emas.</p>
+    {% endfor %}
+</div>
+{% endblock %}

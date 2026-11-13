@@ -339,6 +339,9 @@ footer {
         <a class="admin-write" href="{% url 'yozish' %}">
             ＋ MAQOLA JOYLASHTIRISH
         </a>
+        <a class="admin-write" href="{% url 'bildirishnomalar' %}">
+            🔔 BILDIRISHNOMALAR ({{ yangi_bildirishnoma_soni }})
+        </a>
     </div>
     {% endif %}
 
@@ -355,7 +358,10 @@ footer {
                 <h3>{{ k.sarlavha }}</h3>
                 <div class="author">Muallif: {{ k.muallif }}</div>
                 <p>{{ k.matn|truncatechars:150 }}</p>
-                <div class="read-more">BATAFSIL O‘QISH &nbsp; →</div>
+                <div class="read-more">
+    BATAFSIL O‘QISH &nbsp; →
+    <span style="float:right; color:#c9a45e;">👁 {{ k.korishlar }}</span>
+</div>
             </a>
             {% empty %}
             <div class="empty">

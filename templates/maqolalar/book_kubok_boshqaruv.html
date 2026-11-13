@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Book Kubok | Boshqaruv</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#090909;color:#eee;font-family:Arial,sans-serif;padding:22px}
+header{text-align:center;padding:30px 10px}
+h1{color:#d6b45b;letter-spacing:3px}
+.sub{color:#aaa}
+.cards{display:grid;grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px;max-width:900px;margin:25px auto}
+.card{background:#171717;border:1px solid #59451d;border-radius:13px;padding:22px;text-align:center}
+.number{font-size:30px;color:#e3bd60;font-weight:bold}
+.card p{color:#bbb;margin-bottom:0}
+section{max-width:900px;margin:25px auto;background:#151515;border:1px solid #59451d;border-radius:13px;padding:22px}
+h2{color:#d6b45b}
+a{color:#e3bd60;text-decoration:none}
+.back{display:inline-block;margin-top:20px;border:1px solid #b18b3c;padding:11px 18px;border-radius:8px}
+</style>
+</head>
+<body>
+<header>
+<h1>BOOK KUBOK</h1>
+<div class="sub">Turnir boshqaruv markazi</div>
+<div style="margin-top:20px">
+<a href="{% url 'book_kubok_savollar' %}"
+style="display:inline-block;padding:13px 22px;background:#d6b45b;color:#111;border-radius:9px;font-weight:bold">
+SAVOLLAR BAZASI
+</a>
+</div>
+
+</header>
+
+
+<section>
+<h2>Savollar statistikasi</h2>
+<div class="cards">
+    <div class="card">
+        <div class="number">{{ savollar_soni }}</div>
+        <p>Jami savollar</p>
+    </div>
+    <div class="card">
+        <div class="number">{{ faol_savollar_soni }}</div>
+        <p>Faol savollar</p>
+    </div>
+    <div class="card">
+        <div class="number">{{ ishlatilgan_savollar_soni }}</div>
+        <p>Turnirda ishlatilgan</p>
+    </div>
+    <div class="card">
+        <div class="number">{{ yangi_savollar_soni }}</div>
+        <p>Yangi savollar qoldi</p>
+    </div>
+</div>
+
+{% if savollar_yetarlimi %}
+<p style="color:#8fd19e;text-align:center">Keyingi bosqich uchun savollar yetarli.</p>
+{% else %}
+<p style="color:#ff7777;text-align:center">
+OGOHLANTIRISH: Keyingi bosqich uchun yana {{ yetishmayotgan_savollar_soni }} ta savol kerak.
+</p>
+{% endif %}
+</section>
+<section>
+<h2>Yangi turnir yaratish</h2>
+{% if xato %}<p style="color:#ff7777">{{ xato }}</p>{% endif %}
+<form method="post">
+{% csrf_token %}
+<input
+    type="text"
+    name="nom"
+    maxlength="150"
+    placeholder="Masalan: Book Kubok — 2026"
+    required
+    style="width:100%;padding:13px;background:#222;color:white;border:1px solid #8b713c;border-radius:8px;margin:10px 0"
+>
+<button type="submit"
+style="padding:13px 22px;background:#d6b45b;color:#111;border:0;border-radius:8px;font-weight:bold">
+TURNIR YARATISH
+</button>
+</form>
+</section>
+
+
+<div class="cards">
+<div class="card"><div class="number">{{ turnirlar_soni }}</div><p>Turnirlar</p></div>
+<div class="card"><div class="number">{{ ishtirokchilar_soni }}</div><p>Ishtirokchilar</p></div>
+<div class="card"><div class="number">{{ savollar_soni }}</div><p>Adabiyot savollari</p></div>
+<div class="card"><div class="number">{{ duellar_soni }}</div><p>Duellar</p></div>
+</div>
+
+<section style="text-align:center">
+<h2>Adabiyot savollari</h2>
+<a class="back" href="{% url 'book_kubok_savol_qoshish' %}">+ YANGI SAVOL QO‘SHISH</a>
+</section>
+
+<section>
+<h2>Turnirlar</h2>
+{% if xabar %}<p style="color:#e3bd60">{{ xabar }}</p>{% endif %}
+{% for turnir in turnirlar %}
+<p>{{ turnir.nom }} — {% if turnir.faol %}Faol{% else %}Faol emas{% endif %}</p>
+{% if turnir.faol and not turnir.qura_tashlangan %}
+<form method="post" action="{% url 'book_kubok_qura_tashlash' %}"
+onsubmit="return confirm('16 ishtirokchi uchun qur’a tashlansinmi?');">
+{% csrf_token %}
+<button type="submit"
+style="padding:13px 22px;background:#d6b45b;color:#111;border:0;border-radius:8px;font-weight:bold;cursor:pointer">
+QUR’A TASHLASH
+</button>
+</form>
+{% elif turnir.qura_tashlangan %}
+<p style="color:#8fd19e">Qur’a tashlangan</p>
+{% endif %}
+{% empty %}
+<p>Hozircha turnir yaratilmagan.</p>
+{% endfor %}
+</section>
+
+<center><a class="back" href="{% url 'book_kubok' %}">Book Kubok sahifasiga qaytish</a></center>
+</body>
+</html>

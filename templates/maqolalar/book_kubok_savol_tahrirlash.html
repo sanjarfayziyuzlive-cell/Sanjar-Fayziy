@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+{% block content %}
+<div style="max-width:700px;margin:35px auto;padding:25px;background:#111;color:#f5e6c3;border:1px solid #c9a45e;border-radius:14px">
+    <h1 style="text-align:center;color:#d6b45b">SAVOLNI TAHRIRLASH</h1>
+
+    <form method="post">
+        {% csrf_token %}
+
+        <label>Savol matni</label>
+        <textarea name="savol" required style="width:100%;min-height:100px;padding:12px;margin:8px 0 18px">{{ savol.savol }}</textarea>
+
+        <label>A varianti</label>
+        <input name="variant_a" value="{{ savol.variant_a }}" required style="width:100%;padding:12px;margin:8px 0 15px">
+
+        <label>B varianti</label>
+        <input name="variant_b" value="{{ savol.variant_b }}" required style="width:100%;padding:12px;margin:8px 0 15px">
+
+        <label>C varianti</label>
+        <input name="variant_c" value="{{ savol.variant_c }}" required style="width:100%;padding:12px;margin:8px 0 15px">
+
+        <label>D varianti</label>
+        <input name="variant_d" value="{{ savol.variant_d }}" required style="width:100%;padding:12px;margin:8px 0 15px">
+
+        <label>To‘g‘ri javob</label>
+        <select name="togri_javob" required style="width:100%;padding:12px;margin:8px 0 20px">
+            {% for harf in "ABCD" %}
+            <option value="{{ harf }}" {% if savol.togri_javob == harf %}selected{% endif %}>{{ harf }}</option>
+            {% endfor %}
+        </select>
+
+        <button type="submit" style="padding:13px 22px;background:#d6b45b;color:#111;border:0;border-radius:8px;font-weight:bold">SAQLASH</button>
+        <a href="{% url 'book_kubok_savollar' %}" style="color:#d6b45b;margin-left:12px">Bekor qilish</a>
+    </form>
+</div>
+{% endblock %}
